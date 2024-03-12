@@ -62,16 +62,33 @@ class ApiController extends Controller
 
     //GET API Profile
     public function profile(){
+        $userData=auth()->user();
+        return response()->json([
+            "status"=>true,
+            "message"=>"Profile Fetched",
+            "data"=>$userData
+        ]);
 
     }
 
     //Refresh Token API (GET)
     public function refreshToken(){
-
+        $newToken=auth()->refresh();
+        return response()->json([
+            "status"=>true,
+            "message"=>"New Token Generated",
+            "token"=>$newToken
+        ]);
     }
 
     //LogOut API (GET)
     public function logout(){
+        auth()->logout();
+
+        return response()->json([
+            "status" => true,
+            "message" => "User logged out successfully"
+        ]);
 
     }
 }
